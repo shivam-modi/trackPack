@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DVideo from '../abis/DVideo.json'
 import Navbar from './Navbar'
 import Main from './Main'
 import Web3 from 'web3';
@@ -43,7 +42,7 @@ class App extends Component {
     super(props)
     this.state = {
       account: '',
-      loading: true,
+      loading: false,
       currentHash: null,
     }
   }
@@ -57,8 +56,6 @@ class App extends Component {
         { this.state.loading
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <Main
-              captureFile={this.captureFile}
-              currentHash={this.state.currentHash}
             />
         }
       </div>
