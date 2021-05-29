@@ -9,10 +9,11 @@ const Transfer = (props) => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input);
     contract.methods
       .transferAsset(input.TrackId, input.Wallet, input.Coord)
-      .send({ from: account });
+      .send({ from: account })
+      .then((res) => console.log(res))
+      .catch((err) => alert("transfer Failed"));
   };
   return (
     <div style={{ padding: "50px" }}>
