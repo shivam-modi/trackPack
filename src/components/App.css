@@ -20,3 +20,6 @@ h3 {
 .cont {
   margin: 10% 5%;
 }
+.leaflet-container {
+  height: 100vh;
+}

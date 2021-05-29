@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Maps from "./widgets/Map";
-import Create from "./Create";
+import Maps from "./Map";
 
 class Main extends Component {
   render() {
