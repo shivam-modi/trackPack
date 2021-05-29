@@ -5,7 +5,8 @@ const Main = (props) => {
   const { contract, account } = props;
   const [shipment, setShipment] = useState({});
   const [input, setInput] = useState("");
-  const handleSubmit = async () => {
+
+  const handleSubmit = () => {
     // console.log(Number(input));
     if (input) {
       contract.methods
@@ -47,7 +48,7 @@ const Main = (props) => {
         </button>
       </form>
       <div>{JSON.stringify(shipment)}</div>
-      <Maps shipment={shipment} />
+      <Maps path={shipment[3]} />
     </div>
   );
 };
