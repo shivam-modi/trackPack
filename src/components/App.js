@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Create from "./Create";
+import Transfer from "./Transfer";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./Navbar";
 import Main from "./Main";
@@ -34,7 +35,6 @@ class App extends Component {
     const web3 = window.web3;
     // // Load account
     const accounts = await web3.eth.getAccounts();
-    console.log(accounts);
     this.setState({ account: accounts[0] });
     // const AssetTracker = new Web3.eth.Contract(AssetTrackerAbi,)
     // // Network ID
@@ -71,6 +71,12 @@ class App extends Component {
                 account={this.state.account}
               />
             </Route>
+            <Route path="/transfer">
+              <Transfer
+                contract={this.state.contract}
+                account={this.state.account}
+              />
+            </Route>
             <Route path="/">
               <div>
                 {this.state.loading ? (
@@ -78,7 +84,10 @@ class App extends Component {
                     <p>Loading...</p>
                   </div>
                 ) : (
-                  <Main />
+                  <Main
+                    contract={this.state.contract}
+                    account={this.state.account}
+                  />
                 )}
               </div>
             </Route>

@@ -3,13 +3,17 @@ pragma solidity ^0.5.11;
 // pragma experimental ABIEncoderV2;
 
 contract AssetTracker {
-    int256 counter = 0;
+    int256 public counter = 0;
     struct Asset {
         string title;
         string description;
         string manufacturer;
         bool initialised;
         string[] locations;
+    }
+
+    function getCount() public view returns (int256) {
+        return counter;
     }
 
     //mapping assets with unique uuid
@@ -78,28 +82,35 @@ contract AssetTracker {
         returns (
             string memory,
             string memory,
+            string memory,
             string memory
         )
     {
         require(assetStore[uuid].initialised);
+        string[] memory locations = assetStore[uuid].locations;
+        string memory val = "";
+        for (uint256 i = 0; i < locations.length; i++) {
+            val = string(abi.encodePacked(val, "-", locations[i]));
+        }
         return (
             assetStore[uuid].title,
             assetStore[uuid].description,
-            assetStore[uuid].manufacturer
+            assetStore[uuid].manufacturer,
+            val
         );
     }
 
-    function getAssetLocations(int256 uuid)
-        public
-        view
-        returns (string memory)
-    {
-        require(assetStore[uuid].initialised);
-        string[] memory locations = assetStore[uuid].locations;
-        string memory val = locations[0];
-        for (uint256 i = 1; i < locations.length; i++) {
-            val = string(abi.encodePacked(val, "-", locations[i]));
-        }
-        return val;
-    }
+    // function getAssetLocations(int256 uuid)
+    //     public
+    //     view
+    //     returns (string memory)
+    // {
+    //     require(assetStore[uuid].initialised);
+    //     string[] memory locations = assetStore[uuid].locations;
+    //     string memory val = "";
+    //     for (uint256 i = 0; i < locations.length; i++) {
+    //         val = string(abi.encodePacked(val, "-", locations[i]));
+    //     }
+    //     return val;
+    // }
 }
