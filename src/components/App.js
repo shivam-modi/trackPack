@@ -1,64 +1,90 @@
-import React, { Component } from 'react';
-import Navbar from './Navbar'
-import Main from './Main'
-import Web3 from 'web3';
-import './App.css';
+import React, { Component } from "react";
+import Create from "./Create";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Navbar from "./Navbar";
+import Main from "./Main";
+import Web3 from "web3";
+import "./App.css";
+import AssetTrackerJSON from "../abis/AssetTracker.json";
 
 //Declare IPFS
 // const ipfsClient = require('ipfs-http-client')
 // const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }) // leaving out the arguments will default to these values
 
 class App extends Component {
-
   async componentWillMount() {
-    await this.loadWeb3()
-    await this.loadBlockchainData()
+    await this.loadWeb3();
+    await this.loadBlockchainData();
   }
 
   async loadWeb3() {
     if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum)
-      await window.ethereum.enable()
-    }
-    else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider)
-    }
-    else {
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    } else {
+      window.alert(
+        "Non-Ethereum browser detected. You should consider trying MetaMask!"
+      );
     }
   }
 
   async loadBlockchainData() {
-    const web3 = window.web3
-    // Load account
-    console.log(web3.eth.getAccounts())
-    const accounts = await web3.eth.getAccounts()
-    this.setState({ account: accounts[0] })
-    // Network ID
-    const networkId = await web3.eth.net.getId()
+    const web3 = window.web3;
+    // // Load account
+    const accounts = await web3.eth.getAccounts();
+    console.log(accounts);
+    this.setState({ account: accounts[0] });
+    // const AssetTracker = new Web3.eth.Contract(AssetTrackerAbi,)
+    // // Network ID
+    const networkId = await web3.eth.net.getId();
+    const deployedAddress = AssetTrackerJSON.networks[networkId].address;
+    const contract = new web3.eth.Contract(
+      AssetTrackerJSON.abi,
+      deployedAddress
+    );
+    this.setState({
+      contract: contract,
+    });
   }
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      account: '',
+      account: "",
       loading: false,
       currentHash: null,
-    }
+      contract: null,
+    };
   }
 
   render() {
     return (
-      <div>
-        <Navbar 
-          account={this.state.account}
-        />
-        { this.state.loading
-          ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
-          : <Main
-            />
-        }
-      </div>
+      <BrowserRouter>
+        <div className="app">
+          <Navbar account={this.state.account} />
+          <Switch>
+            <Route path="/create">
+              <Create
+                contract={this.state.contract}
+                account={this.state.account}
+              />
+            </Route>
+            <Route path="/">
+              <div>
+                {this.state.loading ? (
+                  <div id="loader" className="text-center mt-5">
+                    <p>Loading...</p>
+                  </div>
+                ) : (
+                  <Main />
+                )}
+              </div>
+            </Route>
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
