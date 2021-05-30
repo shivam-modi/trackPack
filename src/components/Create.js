@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 const Create = (props) => {
   const { contract, account } = props;
-  const [submit, useSubmit] = useState(false);
   const [id, setId] = useState(null);
   const [input, setInput] = useState({
     title: "",
