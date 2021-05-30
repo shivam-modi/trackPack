@@ -18,7 +18,7 @@ const Transfer = (props) => {
   return (
     <>
     <div className="create container" style={{ padding: "50px" }}>
-      <h1>Transfer Page</h1>
+      <h1>Transfer Asset</h1>
       <form className="createform">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">

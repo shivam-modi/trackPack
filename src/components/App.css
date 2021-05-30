@@ -28,14 +28,13 @@ h3 {
   margin: 10px;
 }
 
+body{
+    background-color: rgb(85, 34, 143);
+}
 
 .logo{
     width: 45px;
     height: 45px;
-}
-
-body{
-    background-color: rgb(85, 34, 143);
 }
 
 
@@ -47,6 +46,7 @@ nav{
     padding: 20px;
     background-color: #d0bebe17;
     border-radius: 10px;
+   
 }
 
 ol, ul, dl {
@@ -127,6 +127,7 @@ a:hover::before{
     padding: 10px;
     background: rgba(255,255,255,0.5);
     margin: 0 10px 7px 0;
+    border-radius: 5px;
 }
 
 .trackid > button{
@@ -189,7 +190,7 @@ a:hover::before{
 }
 
 .circles{
-    position: absolute;
+    position: static;
     top: 0;
     left: 0;
     width: 100%;
@@ -205,8 +206,7 @@ a:hover::before{
     height: 20px;
     background: rgba(255, 255, 255, 0.2);
     animation: animate 25s linear infinite;
-    bottom: -150px;
-    
+    bottom: -150px; 
 }
 
 .circles li:nth-child(1){
