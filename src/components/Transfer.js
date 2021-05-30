@@ -20,49 +20,49 @@ const Transfer = (props) => {
     <div className="create container" style={{ padding: "50px" }}>
       <h1>Transfer Asset</h1>
       <form className="createform">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="exampleInputEmail1" className="form-label">
             TrackId
           </label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="exampleInputEmail1"
             value={input.TrackId}
             onChange={(e) => setInput({ ...input, TrackId: e.target.value })}
           />
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">
             Wallet
           </label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="exampleInputPassword1"
             value={input.Wallet}
             onChange={(e) => setInput({ ...input, Wallet: e.target.value })}
           />
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">
             Coordinates
           </label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="exampleInputPassword1"
             value={input.Coord}
             onChange={(e) => setInput({ ...input, Coord: e.target.value })}
           />
         </div>
-        <button type="submit" class="btn btn-primary" onClick={handleSubmit}>
+        <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
           Transfer
         </button>
       </form>
     </div>
-    <div class="area" >
-            <ul class="circles">
+    <div className="area" >
+            <ul className="circles">
                     <li></li>
                     <li></li>
                     <li></li>
