@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Create = (props) => {
   const { contract, account } = props;
-  const [submit, useSubmit] = useState(false)
+  const [submit, useSubmit] = useState(false);
   const [input, setInput] = useState({
     title: "",
     desc: "",
@@ -19,17 +19,10 @@ const Create = (props) => {
         }
       });
     }
-<<<<<<< HEAD
-  }, [account]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-=======
   }, [submit]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
->>>>>>> d2aae47fb59f371656ed1f9010893d92cb9a5305
+
     contract.methods
       .createAsset(input.title, input.desc)
       .send({ from: account });
@@ -63,18 +56,6 @@ const Create = (props) => {
               onChange={(e) => setInput({ ...input, desc: e.target.value })}
             />
           </div>
-          {/* <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              manufacturer
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="exampleInputPassword1"
-              value={input.manf}
-              onChange={(e) => setInput({ ...input, manf: e.target.value })}
-            />
-          </div> */}
           <button
             type="submit"
             className="btn btn-primary"
