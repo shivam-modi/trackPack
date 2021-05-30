@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   MapContainer,
   TileLayer,
@@ -8,11 +8,6 @@ import {
 } from "react-leaflet";
 
 const Map = (props) => {
-  const polyline = [
-    [51.505, -0.09],
-    [50.51, 10],
-    [10.51, -0.23],
-  ];
   const redOptions = { color: "red" };
   const path = props.path;
   var Path = [];
@@ -20,7 +15,7 @@ const Map = (props) => {
     Path = path?.split("-");
     Path = Path.splice(1);
     Path = Path?.map((location) => {
-      return location.split(" ");
+      return location.split(",");
     });
     console.log(Path);
   }

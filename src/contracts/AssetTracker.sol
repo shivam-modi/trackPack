@@ -37,7 +37,7 @@ contract AssetTracker {
         string memory title,
         string memory description,
         string memory manufacturer
-    ) public {
+    ) public returns (int256) {
         //genarate uuid using keccak256
         int256 uuid = generateUUID();
         string[] memory locations;
@@ -50,6 +50,7 @@ contract AssetTracker {
         );
         WalletStore[msg.sender][uuid] = true;
         emit AssetCreated(uuid, manufacturer, title);
+        return uuid;
     }
 
     //update asset location
@@ -59,20 +60,22 @@ contract AssetTracker {
         string memory location
     ) public {
         //does asset exist
-        if (!assetStore[uuid].initialised) {
-            emit RejectTransfer("asset does not exist");
-            return;
-        }
+        // if (!assetStore[uuid].initialised) {
+        //     emit RejectTransfer("asset does not exist");
+        //     return;
+        // }
+        require(assetStore[uuid].initialised, "asset not initialised");
+        require(WalletStore[msg.sender][uuid], "not allowed to transfer asset");
         //is it current owner of asset
-        if (!WalletStore[msg.sender][uuid]) {
-            emit RejectTransfer("you are not allowed to transfer asset");
-            return;
-        }
+        // if (!WalletStore[msg.sender][uuid]) {
+        //     emit RejectTransfer("you are not allowed to transfer asset");
+        //     return;
+        // }
         //handing over asset
         assetStore[uuid].locations.push(location);
         WalletStore[msg.sender][uuid] = false;
         WalletStore[targetAddress][uuid] = true;
-        emit AssetTransferred(uuid, msg.sender, targetAddress);
+        // emit AssetTransferred(uuid, msg.sender, targetAddress);
     }
 
     //view asset info
@@ -99,18 +102,4 @@ contract AssetTracker {
             val
         );
     }
-
-    // function getAssetLocations(int256 uuid)
-    //     public
-    //     view
-    //     returns (string memory)
-    // {
-    //     require(assetStore[uuid].initialised);
-    //     string[] memory locations = assetStore[uuid].locations;
-    //     string memory val = "";
-    //     for (uint256 i = 0; i < locations.length; i++) {
-    //         val = string(abi.encodePacked(val, "-", locations[i]));
-    //     }
-    //     return val;
-    // }
 }

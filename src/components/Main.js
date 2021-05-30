@@ -23,7 +23,7 @@ const Main = (props) => {
   const handleSubmit1 = () => {
     contract.methods
       .getCount()
-      .call({ from: account })
+      .call()
       .then((val) => {
         console.log(val);
       });
