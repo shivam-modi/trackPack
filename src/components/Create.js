@@ -3,26 +3,25 @@ import React, { useState, useEffect } from "react";
 const Create = (props) => {
   const { contract, account } = props;
   const [submit, useSubmit] = useState(false);
+  const [id, setId] = useState(null);
   const [input, setInput] = useState({
     title: "",
     desc: "",
   });
-  useEffect(() => {
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const event = contract?.events.AssetCreated();
     if (event) {
       event.subscribe((err, result) => {
         if (!err) {
-          const id = result.returnValues["uuid"];
-          alert(`Asset generated with UUID : ${id}`);
+          const Id = result.returnValues["uuid"];
+          setId(Id);
         } else {
           console.log(err);
         }
       });
     }
-  }, [submit]);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
     contract.methods
       .createAsset(input.title, input.desc)
       .send({ from: account });
@@ -30,6 +29,7 @@ const Create = (props) => {
   return (
     <>
       <div className="create container" style={{ padding: "50px" }}>
+        {id ? <h1>Asset generated with UUID : {id}</h1> : <h1></h1>}
         <h1>Create new asset</h1>
         <form className="createform">
           <div className="mb-3">
