@@ -14,9 +14,10 @@ const Create = (props) => {
       .send({ from: account });
   };
   return (
-    <div style={{ padding: "50px" }}>
+    <>
+    <div className="create container" style={{ padding: "50px" }}>
       <h1>Create Page</h1>
-      <form>
+      <form className="createform">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">
             Title
@@ -58,6 +59,21 @@ const Create = (props) => {
         </button>
       </form>
     </div>
+    <div class="area" >
+            <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+            </ul>
+    </div >
+    </>
   );
 };
 

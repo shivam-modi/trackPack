@@ -15,9 +15,10 @@ const Transfer = (props) => {
       .send({ from: account });
   };
   return (
-    <div style={{ padding: "50px" }}>
+    <>
+    <div className="create container" style={{ padding: "50px" }}>
       <h1>Transfer Page</h1>
-      <form>
+      <form className="createform">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">
             TrackId
@@ -59,6 +60,21 @@ const Transfer = (props) => {
         </button>
       </form>
     </div>
+    <div class="area" >
+            <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+            </ul>
+    </div >
+    </>
   );
 };
 
