@@ -13,6 +13,22 @@ h3 {
   color: whitesmoke;
 }
 
+.dataview{
+    margin: 20px;
+    color: white;
+}
+.trackdata{
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 5%;
+    width: 50%;
+    padding: 10px;
+    background-color: #d0bebe17;
+    border-radius: 10px;
+}
+.item{
+    margin: 5px;
+}
 /* nav{
     display: grid;
     text-align: center;
@@ -132,13 +148,6 @@ a:hover::before{
 
 .trackid > button{
     margin: 10px;
-}
-
-.trackdata{
-    margin: auto;
-    margin-top: 15px;
-    width: 50%;
-    background: whitesmoke;
 }
 
 .createform{
