@@ -30,8 +30,9 @@ const Main = (props) => {
   };
   return (
     <div className="cont text-monospace">
-      <form className="trackid"> 
-        <label htmlFor="name">Track your package</label><br/>
+      <form className="trackid">
+        <label htmlFor="name">Track your package</label>
+        <br />
         <input
           type="text"
           aria-label="tackid"
@@ -47,6 +48,7 @@ const Main = (props) => {
           Count
         </button>
       </form>
+
       <div className="trackdata">{JSON.stringify(shipment)}</div>
       <Maps path={shipment[3]} />
     </div>

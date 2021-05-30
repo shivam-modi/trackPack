@@ -25,7 +25,8 @@ contract AssetTracker {
     mapping(address => mapping(int256 => bool)) private WalletStore;
 
     //events
-    // event AssetCreated(int256 uuid, string manufacturer, string title);
+    event AssetCreated(int256 uuid);
+
     // event AssetTransferred(int256 uuid, address from, address to);
     // event RejectTransfer(string message);
 
@@ -38,7 +39,6 @@ contract AssetTracker {
     //generate new asset
     function createAsset(string memory title, string memory description)
         public
-        returns (int256)
     {
         //genarate uuid using keccak256
         int256 uuid = generateUUID();
@@ -54,7 +54,8 @@ contract AssetTracker {
             "dispatched"
         );
         WalletStore[msg.sender][uuid] = true;
-        return uuid;
+        emit AssetCreated(uuid);
+        (uuid);
     }
 
     //update asset location

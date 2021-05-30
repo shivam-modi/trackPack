@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Create = (props) => {
   const { contract, account } = props;
@@ -6,8 +6,22 @@ const Create = (props) => {
     title: "",
     desc: "",
   });
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const event = contract?.events.AssetCreated();
+    if (event) {
+      event.subscribe((err, result) => {
+        if (!err) {
+          const id = result.returnValues["uuid"];
+          alert(`Asset generated with UUID : ${id}`);
+        } else {
+          console.log(err);
+        }
+      });
+    }
+  }, []);
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     contract.methods
       .createAsset(input.title, input.desc)
       .send({ from: account });
