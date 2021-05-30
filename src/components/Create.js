@@ -18,8 +18,8 @@ const Create = (props) => {
         }
       });
     }
-  }, []);
-  const handleSubmit = async (e) => {
+  }, [account]);
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     contract.methods
@@ -55,7 +55,7 @@ const Create = (props) => {
               onChange={(e) => setInput({ ...input, desc: e.target.value })}
             />
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label htmlFor="exampleInputPassword1" className="form-label">
               manufacturer
             </label>
@@ -66,7 +66,7 @@ const Create = (props) => {
               value={input.manf}
               onChange={(e) => setInput({ ...input, manf: e.target.value })}
             />
-          </div>
+          </div> */}
           <button
             type="submit"
             className="btn btn-primary"

@@ -55,7 +55,6 @@ contract AssetTracker {
         );
         WalletStore[msg.sender][uuid] = true;
         emit AssetCreated(uuid);
-        (uuid);
     }
 
     //update asset location

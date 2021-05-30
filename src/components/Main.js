@@ -7,13 +7,14 @@ const Main = (props) => {
   const [shipment, setShipment] = useState({});
   const [issearch, setIssearch] = useState(false);
   const [input, setInput] = useState("");
+
   const data = {
-    0: "remdesivir",
-    1: "10000 vials",
-    2: "0x854201201534d10bedda9a562799A772c712fEC0",
-    3: "",
-    4: "0x854201201534d10bedda9a562799A772c712fEC0",
-    5: "1622347383",
+    0: shipment[0],
+    1: shipment[1],
+    2: shipment[2],
+    3: shipment[3],
+    4: shipment[4],
+    5: shipment[5],
   };
 
   const handleSubmit = () => {
@@ -24,6 +25,7 @@ const Main = (props) => {
         .call()
         .then((details) => {
           setShipment(details);
+          setIssearch(true);
         })
         .catch((err) => {
           alert("incorrect tracking id");
@@ -50,7 +52,6 @@ const Main = (props) => {
           name="id"
           value={input}
           onChange={(e) => {
-            setIssearch(true);
             setInput(e.target.value);
           }}
         />
