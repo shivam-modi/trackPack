@@ -7,9 +7,12 @@ contract AssetTracker {
     struct Asset {
         string title;
         string description;
-        string manufacturer;
+        address manufacturer;
+        address current_owner;
         bool initialised;
         string[] locations;
+        uint256 created_at;
+        string status;
     }
 
     function getCount() public view returns (int256) {
@@ -22,9 +25,9 @@ contract AssetTracker {
     mapping(address => mapping(int256 => bool)) private WalletStore;
 
     //events
-    event AssetCreated(int256 uuid, string manufacturer, string title);
-    event AssetTransferred(int256 uuid, address from, address to);
-    event RejectTransfer(string message);
+    // event AssetCreated(int256 uuid, string manufacturer, string title);
+    // event AssetTransferred(int256 uuid, address from, address to);
+    // event RejectTransfer(string message);
 
     //uuid generator
     function generateUUID() private returns (int256) {
@@ -33,23 +36,24 @@ contract AssetTracker {
     }
 
     //generate new asset
-    function createAsset(
-        string memory title,
-        string memory description,
-        string memory manufacturer
-    ) public returns (int256) {
+    function createAsset(string memory title, string memory description)
+        public
+        returns (int256)
+    {
         //genarate uuid using keccak256
         int256 uuid = generateUUID();
         string[] memory locations;
         assetStore[uuid] = Asset(
             title,
             description,
-            manufacturer,
+            msg.sender,
+            msg.sender,
             true,
-            locations
+            locations,
+            now,
+            "dispatched"
         );
         WalletStore[msg.sender][uuid] = true;
-        emit AssetCreated(uuid, manufacturer, title);
         return uuid;
     }
 
@@ -73,6 +77,7 @@ contract AssetTracker {
         // }
         //handing over asset
         assetStore[uuid].locations.push(location);
+        assetStore[uuid].current_owner = targetAddress;
         WalletStore[msg.sender][uuid] = false;
         WalletStore[targetAddress][uuid] = true;
         // emit AssetTransferred(uuid, msg.sender, targetAddress);
@@ -85,8 +90,10 @@ contract AssetTracker {
         returns (
             string memory,
             string memory,
+            address,
             string memory,
-            string memory
+            address,
+            uint256
         )
     {
         require(assetStore[uuid].initialised);
@@ -99,7 +106,9 @@ contract AssetTracker {
             assetStore[uuid].title,
             assetStore[uuid].description,
             assetStore[uuid].manufacturer,
-            val
+            val,
+            assetStore[uuid].current_owner,
+            assetStore[uuid].created_at
         );
     }
 }
