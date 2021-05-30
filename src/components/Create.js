@@ -16,7 +16,7 @@ const Create = (props) => {
   return (
     <>
     <div className="create container" style={{ padding: "50px" }}>
-      <h1>Create Page</h1>
+      <h1>Create new asset</h1>
       <form className="createform">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">
