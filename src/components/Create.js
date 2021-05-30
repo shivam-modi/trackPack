@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Create = (props) => {
   const { contract, account } = props;
+  const [submit, useSubmit] = useState(false)
   const [input, setInput] = useState({
     title: "",
     desc: "",
@@ -18,10 +19,17 @@ const Create = (props) => {
         }
       });
     }
+<<<<<<< HEAD
   }, [account]);
   const handleSubmit = (e) => {
     e.preventDefault();
 
+=======
+  }, [submit]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+>>>>>>> d2aae47fb59f371656ed1f9010893d92cb9a5305
     contract.methods
       .createAsset(input.title, input.desc)
       .send({ from: account });
